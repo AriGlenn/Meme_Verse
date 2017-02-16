@@ -11,6 +11,11 @@ class BlogSpider(scrapy.Spider):
             yield scrapy.Request(response.urljoin(response.css('div.prev-post > a ::attr(href)').extract_first()), callback=self.parse) #get all the posts off the next page
 
 '''
+To create a csv file:
+scrapy crawl SPIDER_NAME -o filename.csv
+
+
+
 Run: scrapy shell 'http://quotes.toscrape.com/page/1/''
 to get info on the url
 
