@@ -12,19 +12,20 @@ class QuotesSpider(scrapy.Spider):
     def parse(self, response):
 
         homes = response.css("div.post")
-        memeURL_Extensions = []
+        memeURL_IMGs = []
         x = 0
         for home in homes:
             homes1 = homes[x]
             postS_urlS_extensionS = homes1.css('a.image-list-link::attr(href)').extract()
             x += 1
-            z = 0
-            for linkExtensions in postS_urlS_extensionS:
-                linkExtensions1 = postS_urlS_extensionS[0]
-                memeURL_Extensions.append(linkExtensions1)
-                print(linkExtensions1)
 
-        with open('memeURLs.csv', 'w') as out:
+
+
+
+
+
+
+        with open('meme_img_URLs.csv', 'w') as out:
             writer = csv.writer(out)
-            for memes in memeURL_Extensions:
+            for imgs in memeURL_IMGs:
                 writer.writerow(memes.split(","))

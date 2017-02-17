@@ -22,7 +22,7 @@ class QuotesSpider(scrapy.Spider):
                 memeURL_Extensions.append(linkExtensions1)
                 print(linkExtensions1)
 
-        with open('memeURLs.csv', 'w') as out:
+        with open('meme_post_URLs.csv', 'w') as out:
             writer = csv.writer(out)
             for memes in memeURL_Extensions:
                 writer.writerow(memes.split(","))
