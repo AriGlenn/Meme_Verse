@@ -3,9 +3,8 @@ import scrapy, csv
 
 class QuotesSpider(scrapy.Spider):
     name = "memes"
-    start_urls = [
-        'http://imgur.com/t/memes/',
-    ]
+    start_urls = ['http://imgur.com/t/memes/',]
+
 
     def parse(self, response):
 
@@ -21,8 +20,14 @@ class QuotesSpider(scrapy.Spider):
                 linkExtensions1 = 'http://imgur.com' + str(postS_urlS_extensionS[0])
                 memeURL_Extensions.append(linkExtensions1)
                 print(linkExtensions1)
+                yield scrapy.Request(linkExtensions1, self.parse_results)
 
-        with open('meme_post_URLs.csv', 'w') as out:
-            writer = csv.writer(out)
-            for memes in memeURL_Extensions:
-                writer.writerow(memes.split(","))
+
+    def parse_results(self, response):
+        print("\n\n\n\n\n\n\n\n\n" + "URL: " + response.url)
+
+        ffff = response.css("div.post-image")
+        ff = ffff.css('a.zoom::attr(href)').extract()
+
+
+        print(ff)
