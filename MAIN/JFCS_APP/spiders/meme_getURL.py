@@ -24,10 +24,21 @@ class QuotesSpider(scrapy.Spider):
 
 
     def parse_results(self, response):
+        memeIMG_URLs = []
         print("\n\n\n\n\n\n\n\n\n" + "URL: " + response.url)
 
-        ffff = response.css("div.post-image")
-        ff = ffff.css('a.zoom::attr(href)').extract()
+        main = response.css("div.post-image")
+        href = main.css('a.zoom::attr(href)').extract()
+        if href:
+            print('The img url is in the href')
+            print(href)
+            memeIMG_URLs.append(href)
+        else:
+            print('The img url is in the img src')
+            imgSrc = main.xpath('//img/@src').extract_first()
+            print(imgSrc)
+            memeIMG_URLs.append(imgSrc)
 
-
-        print(ff)
+        with open('meme_img_URLs.csv', 'a') as out:
+            writer = csv.writer(out)
+            writer.writerow(memeIMG_URLs)
