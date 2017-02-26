@@ -19,7 +19,6 @@ class QuotesSpider(scrapy.Spider):
             for linkExtensions in postS_urlS_extensionS:
                 linkExtensions1 = 'http://imgur.com' + str(postS_urlS_extensionS[0])
                 memeURL_Extensions.append(linkExtensions1)
-                print(linkExtensions1)
                 yield scrapy.Request(linkExtensions1, self.parse_results)
 
 
@@ -31,14 +30,18 @@ class QuotesSpider(scrapy.Spider):
         href = main.css('a.zoom::attr(href)').extract()
         if href:
             print('The img url is in the href')
-            print(href)
-            memeIMG_URLs.append(href)
+            for x in href:
+                print(x)
+                link = "https:" + x
+                memeIMG_URLs.append(link)
         else:
             print('The img url is in the img src')
             imgSrc = main.xpath('//img/@src').extract_first()
+            imgSrc =  "https:" + imgSrc
             print(imgSrc)
             memeIMG_URLs.append(imgSrc)
 
         with open('meme_img_URLs.csv', 'a') as out:
             writer = csv.writer(out)
-            writer.writerow(memeIMG_URLs)
+            for links in memeIMG_URLs:
+                writer.writerow(links.split(","))
