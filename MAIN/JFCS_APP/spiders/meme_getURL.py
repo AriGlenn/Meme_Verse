@@ -30,12 +30,14 @@ class QuotesSpider(scrapy.Spider):
                 link = "https:" + x
                 memeIMG_URLs.append(link)
         else:
-            gif1 = response.css("div.video-container script").extract_first()
-            if gif1:
+            gif1 = response.css("div.video-container source::attr(src)").extract()
 
-                print('GIFGIFGIFGIFGIFGIFGIF: ' + str(gif1))
-                print('The img url is a gif')
-                memeIMG_URLs.append(gif1)
+            if gif1:
+                print('The img url is a movie/gif')
+                for x in gif1:
+                    gif_link = "https:" + x
+                    print(gif_link)
+                    memeIMG_URLs.append(gif_link)
 
             else:
                 print('The img url is in the img src')
@@ -43,6 +45,9 @@ class QuotesSpider(scrapy.Spider):
                 imgSrc = "https:" + imgSrc
                 print(imgSrc)
                 memeIMG_URLs.append(imgSrc)
+
+
+
         with open('meme_img_URLs.csv', 'a') as out:
             writer = csv.writer(out)
             for links in memeIMG_URLs:
