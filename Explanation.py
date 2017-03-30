@@ -16,7 +16,7 @@ scrapy crawl SPIDER_NAME -o filename.csv
 
 
 
-Run: scrapy shell 'http://quotes.toscrape.com/page/1/''
+Run: scrapy shell 'http://quotes.toscrape.com/page/1/'
 to get info on the url
 
 Run: response.css('title::text')[0].extract()
