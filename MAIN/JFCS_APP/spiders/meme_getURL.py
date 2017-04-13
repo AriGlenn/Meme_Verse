@@ -34,17 +34,17 @@ class QuotesSpider(scrapy.Spider):
         if href:
             for x in href:
                 link = "https:" + x
-                mainLinks.append(link + ', ')
+                mainLinks.append(link)
         else:
             gif1 = response.css("div.video-container source::attr(src)").extract()
             if gif1:
                 for x in gif1:
                     gif_link = "https:" + x
-                    mainLinks.append(gif_link + ', ')
+                    mainLinks.append(gif_link)
             else:
                 imgSrc = main.xpath('//img/@src').extract_first()
                 imgSrc = "https:" + imgSrc
-                mainLinks.append(imgSrc + ', ')
+                mainLinks.append(imgSrc)
         nameHome = response.css("div.post-title-container")
         name = nameHome.xpath('//h1/text()').extract_first()
         if name == '':

@@ -29,5 +29,25 @@ def getList(Max):
     con.close()
     return jsonify(dictIDs)
 
+@app.route('/getall')
+def getall():
+    listIDs = []
+    dictIDs = {}
 
-#return ids in json file where each id is linked to a name
+    con = lite.connect('test47.db')
+    cursor = con.execute("SELECT rowid, Name, DatePosted, URL, MAINURL from MemesTest1")
+    for row in cursor:
+        listIDs.append(row[0])
+        dictMEMEs = {}
+        dictMEMEs['Name'] = row[1]
+        dictMEMEs['DatePosted'] = row[2]
+        dictMEMEs['MainUrl'] = row[4]
+        dictMEMEs['MemeUrls'] = pickle.loads(row[3])
+
+        dictIDs[row[0]] = dictMEMEs
+
+    con.close()
+    return jsonify(dictIDs)
+
+if __name__ == '__main__':
+    app.run(host='my_ip_addr',port=5000)
