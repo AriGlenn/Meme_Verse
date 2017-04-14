@@ -1,4 +1,4 @@
-import scrapy, time, pickle
+import scrapy, pickle
 import sqlite3 as lite
 
 con = lite.connect('test47.db')
@@ -23,8 +23,9 @@ class QuotesSpider(scrapy.Spider):
             for linkExtensions in postS_urlS_extensionS:
                 linkExtensions1 = 'http://imgur.com' + str(postS_urlS_extensionS[0])
                 memeURL_Extensions.append(linkExtensions1)
-                time.sleep(0)
                 yield scrapy.Request(linkExtensions1, self.parse_results)
+
+
 
     def parse_results(self, response):
         print("URL: " + response.url)
